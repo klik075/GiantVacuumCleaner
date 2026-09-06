@@ -39,9 +39,9 @@ public class ResourceSpawner : MonoBehaviour
     public void SetObject()
     {
         PrefabList = Managers.PrefabLoader.GetGroupObject(groupName.ToString());
-        SpawnReSources();
+        SpawnResources();
     }
-    private void SpawnReSources()
+    private void SpawnResources()
     {
         if(positivePosition == null && negativePosition == null)
             return;

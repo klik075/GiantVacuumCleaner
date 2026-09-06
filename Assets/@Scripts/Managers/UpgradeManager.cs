@@ -367,27 +367,6 @@ public class UpgradeManager
             _timeText.text = FormatTime(_currentTimeLimit);
         }
     }
-    //public string FormatGold(int gold)
-    //{
-    //    string formattedString;
-
-    //    if (gold >= 1000000000)
-    //    {
-    //        return formattedString = $"{(gold / 1000000000.0):F2}B";
-    //    }
-    //    else if (gold >= 1000000)
-    //    {
-    //        return formattedString = $"{(gold / 1000000.0):F2}M";
-    //    }
-    //    else if (gold >= 1000)
-    //    {
-    //        return formattedString = $"{(gold / 1000.0):F2}K";
-    //    }
-    //    else
-    //    {
-    //        return formattedString = gold.ToString();
-    //    }
-    //}
     public void SecretButton()
     {
         secretCount++;

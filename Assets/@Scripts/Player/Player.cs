@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     private string cleaningSoundTag = "cleaning";
     [SerializeField]
     private Billboard billboard;
+    [SerializeField]
+    private CognitiveRange cognitiveRange;
+    [SerializeField]
+    private SuckController suckController;
 
     private int _currentGold;
     private int _roundGold = 0;
@@ -178,6 +182,8 @@ public class Player : MonoBehaviour
                         if (myLv != CurrentData.Lv)
                         {
                             SetSize(CurrentData.Lv,changeSizeDuration);//replace -> size a
+                            cognitiveRange.RefreshRange();
+                            suckController.OnLevelUp();
                         }
                         //Destroy(rb.gameObject);//삭제 -> 큐에 저장 -> 보스 공격 때 dequeue();
                         Managers.ThingManager.AbsorbThing(rb.gameObject);

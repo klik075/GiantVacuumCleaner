@@ -34,17 +34,22 @@ public class PrefabLoader
     }
     public async UniTask LoadAllPrefabs()
     {
+        // Addressables 전용 확장 메서드 .ToUniTask() 사용 권장
         var handle = Addressables.LoadAssetAsync<PrefabAddressList>(loadAssetAddress);
-        await handle.Task.AsUniTask();
+        prefabAddressList = await handle.ToUniTask();
 
-        if (handle.Status == AsyncOperationStatus.Succeeded)
+        if (prefabAddressList != null)
         {
-            prefabAddressList = handle.Result;
+            // ⭐ 모든 그룹을 동시에(병렬로) 비동기 로딩하여 로딩 속도 최적화
+            var groupTasks = new List<UniTask>();
 
             foreach (PrefabGroup group in Enum.GetValues(typeof(PrefabGroup)))
             {
-                await LoadPrefabsFromGroup(group);
+                groupTasks.Add(LoadPrefabsFromGroup(group));
             }
+
+            // 모든 그룹이 로드될 때까지 한 번에 기다림
+            await UniTask.WhenAll(groupTasks);
 
             CallEndInit();
         }
@@ -53,6 +58,28 @@ public class PrefabLoader
             Debugger.LogError("Failed to load PrefabAddressList.");
         }
     }
+
+    //public async UniTask LoadAllPrefabs() 기존 사용 방식
+    //{
+    //    var handle = Addressables.LoadAssetAsync<PrefabAddressList>(loadAssetAddress);
+    //    await handle.Task.AsUniTask();
+
+    //    if (handle.Status == AsyncOperationStatus.Succeeded)
+    //    {
+    //        prefabAddressList = handle.Result;
+
+    //        foreach (PrefabGroup group in Enum.GetValues(typeof(PrefabGroup)))
+    //        {
+    //            await LoadPrefabsFromGroup(group);
+    //        }
+
+    //        CallEndInit();
+    //    }
+    //    else
+    //    {
+    //        Debugger.LogError("Failed to load PrefabAddressList.");
+    //    }
+    //}
 
     private void CallEndInit()
     {
