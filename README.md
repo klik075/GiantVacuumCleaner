@@ -125,7 +125,8 @@ private void FixedUpdate()
 <details>
 <summary><b>📌 사용 에셋 / 외부 코드</b></summary>
 
-- 회사 제공: 아트 리소스, 광고·분석 SDK, 내부 에디터 프레임워크 (저장소에서 제외)
+- 회사 제공 (저장소에서 제외): 광고·분석 SDK 모듈과 설정, 내부 에디터 프레임워크
+- 회사 제공 (포함): 게임 아트 리소스
 - 외부 라이브러리·에셋: UniTask, DOTween, SerializedCollections, QuickOutline, Quirky Series(동물), Hits Effects
 
 </details>
